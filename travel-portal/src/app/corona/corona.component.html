@@ -1,0 +1,155 @@
+<header
+  class="header-area header-sticky"
+  style="position: fixed"
+  id="header-scroll"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <input type="checkbox" id="toggle-btn" />
+        <label for="toggle-btn" class="show-menu-btn"
+          ><i class="fa fa-bars"></i
+        ></label>
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a *ngIf="size >= 400" href="/home" class="logo"
+            >Hangout<em> Travel</em></a
+          >
+          <a *ngIf="size < 400" href="/home" class="logo">H<em>T</em></a>
+          <!-- ***** Logo End ***** -->
+          <!-- ***** Menu Start ***** -->
+          <ul class="navigation">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/request-ticket">Request Ticket</a></li>
+            <li><a href="/corona" class="active">Corona Stats</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li class="toggle-li">
+              <a href="/myTickets/{{ userId }}">My Tickets</a>
+            </li>
+            <li class="toggle-li">
+              <a (click)="logout()">Logout</a>
+            </li>
+            <li>
+              <div class="dropdown">
+                <i class="fa fa-user-circle" aria-hidden="true">
+                  Hi, {{ username }}</i
+                >
+                <div class="dropdown-content">
+                  <a
+                    href="/myTickets/{{ userId }}"
+                    style="margin: 8px; padding: 10px"
+                    >My Tickets</a
+                  >
+                  <a style="margin: 8px; padding: 10px" (click)="logout()"
+                    >Logout</a
+                  >
+                </div>
+              </div>
+            </li>
+            <label for="toggle-btn" class="hide-menu-btn"
+              ><i class="fa fa-times"></i
+            ></label>
+          </ul>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<section
+  class="section section-bg"
+  id="call-to-action"
+  style="background-image: url(assets/images/banner1.jpg)"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="cta-content">
+          <br />
+          <br />
+          <h2 style="font-size: 20px">Corona <em>Stats</em></h2>
+          <p style="font-size: 15px">
+            Please check the corona stats before you plan to travel by entering
+            country name
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="trainers">
+  <div class="container">
+    <div class="input-group mt-4 mb-3">
+      <select
+        class="custom-select form-select"
+        id="inputGroupSelect"
+        (change)="getCountry($event)"
+      >
+        <option selected disabled>Choose country</option>
+        <option *ngFor="let country of countries">
+          {{ country["Country"] }}
+        </option>
+      </select>
+      <div class="input-group-append">
+        <button
+          [disabled]="!hasCountry"
+          class="btn mybtn-success"
+          style="background-color: #57c84d; border-color: #abe098; color: #fff"
+          for="inputGroupSelect"
+          (click)="checkStats()"
+        >
+          Check Stats
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="displayGraph">
+      <div class="row mt-4" style="text-align: center; margin-bottom: 20px">
+        <div class="col-md-4 mb-4">
+          Confirmed: <button class="btn btn-warning">{{ confirmed }}</button>
+        </div>
+        <div class="col-md-4 mb-4">
+          Recovered: <button class="btn btn-success">{{ recovered }}</button>
+        </div>
+        <div class="col-md-4 mb-4">
+          Deaths: <button class="btn btn-danger">{{ deaths }}</button>
+        </div>
+      </div>
+
+      <canvas
+        baseChart
+        [chartType]="'line'"
+        [datasets]="chartData"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+        [legend]="true"
+      >
+      </canvas>
+    </div>
+
+    <div
+      *ngIf="isActive === 1"
+      class="alert alert-success"
+      role="alert"
+      style="margin-top: 50px"
+    >
+      There is no active case of corona.
+    </div>
+
+    <div
+      *ngIf="isActive === 0 && travelsDataPretty"
+      class="alert alert-warning"
+      role="alert"
+      style="margin-top: 50px"
+    >
+      <div *ngFor="let i of travelsDataPretty">
+        <p *ngIf="i[0] === '-'" style="padding-left: 20px">
+          {{ i }}
+        </p>
+        <p *ngIf="i[0] !== '-'">
+          {{ i }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

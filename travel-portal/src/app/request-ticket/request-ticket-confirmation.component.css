@@ -1,0 +1,9 @@
+@media print{
+  .doNotPrint{
+    display:none !important;
+  }
+}
+
+@page {
+  size: portrait;
+}

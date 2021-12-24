@@ -1,0 +1,93 @@
+<div class="container-login100 background">
+  <div class="wrap-login100 p-l-55 p-r-55 p-b-30 p-t-80" id="mar-top">
+    <div
+      *ngIf="error"
+      id="alert-div"
+      class="alert alert-danger alert-white rounded"
+      style="margin-top: -60px"
+    >
+      <button
+        (click)="closeError()"
+        id="alert-btn"
+        type="button"
+        data-dismiss="alert"
+        aria-hidden="true"
+        class="close"
+      >
+        <div class="icon">
+          <i class="fa fa-times-circle"></i>
+        </div>
+      </button>
+      Email does not exist!<br />
+      &nbsp; Please try again!
+    </div>
+    <form
+      novalidate
+      class="login100-form validate-form"
+      (ngSubmit)="submit()"
+      [formGroup]="forgotForm"
+    >
+      <span class="login100-form-title p-b-10">
+        Welcome To Hangout Travel!
+      </span>
+      <span class="login100-form-title-line p-b-37">
+        Please enter your e-mail address and your information will be e-mailed
+        to you.
+      </span>
+
+      <div
+        class="wrap-input100 validate-input m-b-5"
+        id="user-div"
+        data-validate="Enter username"
+      >
+        <input
+          class="input100"
+          type="text"
+          formControlName="username"
+          required
+          placeholder="Email address"
+          pattern="^[a-zA-Z0-9_.+-]+@gmail.com"
+          [ngClass]="{
+            'is-invalid':
+              (forgotForm.get('username')?.touched ||
+                forgotForm.get('username')?.dirty) &&
+              !forgotForm.get('username')?.valid
+          }"
+        />
+        <span class="focus-input100"></span>
+      </div>
+      <div
+        *ngIf="
+          (forgotForm.get('username')?.touched ||
+            forgotForm.get('username')?.dirty) &&
+          forgotForm.get('username')?.errors?.required
+        "
+        class="invalid-username"
+      >
+        Please enter your email address
+      </div>
+      <div
+        *ngIf="
+          (forgotForm.get('username')?.touched ||
+            forgotForm.get('username')?.dirty) &&
+          forgotForm.get('username')?.errors?.invalidUsername
+        "
+        class="invalid-username"
+      >
+        Please enter in format abc@gmail.com
+      </div>
+
+      <div class="container-login100-form-btn m-t-20">
+        <button class="login100-form-btn" [disabled]="!forgotForm.valid">
+          Submit
+        </button>
+      </div>
+
+      <div class="text-center p-t-47 p-b-10"></div>
+
+      <div class="text-center p-b-10 hov1">
+        <a href="/signin" class="txt1"> Return to SignIn page </a>
+      </div>
+    </form>
+  </div>
+</div>

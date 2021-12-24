@@ -1,0 +1,415 @@
+<header
+  class="header-area header-sticky"
+  style="position: fixed"
+  id="header-scroll"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <input type="checkbox" id="toggle-btn" />
+        <label for="toggle-btn" class="show-menu-btn"
+          ><i class="fa fa-bars"></i
+        ></label>
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a href="/admin/home" class="logo">Hangout<em> Travel</em></a>
+          <!-- ***** Logo End ***** -->
+          <!-- ***** Menu Start ***** -->
+          <ul class="navigation">
+            <li class="toggle-li">
+              <a (click)="logout()">Logout</a>
+            </li>
+            <li>
+              <div class="dropdown">
+                <i class="fa fa-user-circle" aria-hidden="true"> Hi, Admin</i>
+                <div class="dropdown-content">
+                  <a style="margin: 8px; padding: 10px" (click)="logout()"
+                    >Logout</a
+                  >
+                </div>
+              </div>
+            </li>
+            <label for="toggle-btn" class="hide-menu-btn"
+              ><i class="fa fa-times"></i
+            ></label>
+          </ul>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->
+
+<!-- ***** Call to Action Start ***** -->
+<section
+  class="section section-bg"
+  id="call-to-action"
+  style="background-image: url(assets/images/banner1.jpg)"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="cta-content">
+          <br />
+          <br />
+          <h2 style="font-size: 20px">Ticket <em>Details</em></h2>
+          <p style="font-size: 15px">Here you the details of your ticket</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ***** Call to Action End ***** -->
+
+<!-- ***** Form Starts ***** -->
+<div class="container" style="margin-top: -60px">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Tabs with icons on Card -->
+      <div class="card card-nav-tabs">
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="track">
+              <div id="submit" class="step active">
+                <span class="icon"> <i class="fa fa-ticket"></i> </span>
+                <span class="text" id="resubmit">Submitted</span>
+              </div>
+              <div id="process" class="step">
+                <span class="icon"> <i class="fa fa-cogs"></i> </span>
+                <span class="text"> In Process</span>
+              </div>
+              <div id="approve" class="step">
+                <span class="icon"> <i class="fa fa-check"></i> </span>
+                <span class="text">Approved </span>
+              </div>
+            </div>
+            <!-- <div style="display: flex; align-items: center; margin-bottom: 20px;">
+              <img src="../../assets/images/confirm.gif" alt="submitted" width=40px />
+              <span>Your ticket has been submitted successfully.</span>
+            </div> -->
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  TicketID:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticketID }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Request Type:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.requestType }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Location City:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.locationCity }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Travel City:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.travelCity }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Travel Start Date:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ startDate }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Travel End Date :
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ endDate }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Priority:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.priority }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Passport Number:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.passportNumber }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Project Name:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.projectName }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Expense Borne by:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.expenseBorneBy }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Travel Approver Name:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.travelApproverName }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Expected Duration of Travel:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.expectedDuration }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Upper Bound on the allowed amount:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.upperBoundOnAmt }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Additional Details:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.additionalDetails }}</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="mybtn mybtn-success"
+                (click)="changeStatus('IN PROCESS')"
+              >
+                Process
+              </button>
+              <button
+                type="button"
+                class="mybtn mybtn-success"
+                (click)="changeStatus('APPROVED')"
+              >
+                Approve
+              </button>
+              <button
+                type="button"
+                class="mybtn mybtn-success"
+                (click)="returnToHome()"
+              >
+                Return to home page
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- End Tabs with icons on Card -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h4 style="font-weight: 700; margin-top: 30px">Upload File</h4>
+  <div class="input-group mb-3">
+    <input type="file" class="form-control" (change)="onChange($event)" />
+    <label class="btn btn-success" (click)="uploadFile()">Upload</label>
+  </div>
+  <section class="tabs-content" *ngIf="uploadedFiles.length">
+    <h4 style="font-weight: 700; margin-top: 30px">Uploaded Files</h4>
+    <div class="row" *ngFor="let file of uploadedFiles">
+      <div class="col-lg-8">{{ file.name }}</div>
+      <div class="col-lg-4" style="text-align-last: right">
+        <label
+          class="btn btn-danger"
+          style="margin-right: 5px"
+          (click)="deleteFile(file)"
+          >Delete</label
+        >
+        <label class="btn btn-success" (click)="downloadFile(file)"
+          >Download</label
+        >
+      </div>
+    </div>
+  </section>
+  <section class="tabs-content" *ngIf="employeeFiles.length">
+    <h4 style="font-weight: 700; margin-top: 30px">
+      Files uploaded by employee
+    </h4>
+    <div class="row" *ngFor="let file of employeeFiles">
+      <div class="col-lg-8">{{ file.name }}</div>
+      <div class="col-lg-4" style="text-align-last: right">
+        <label class="btn btn-success" (click)="downloadFile(file)"
+          >Download</label
+        >
+      </div>
+    </div>
+  </section>
+  <section class="tabs-content">
+    <div class="row">
+      <div class="col-md-8">
+        <h4>Comments</h4>
+        <ul class="features-items">
+          <li *ngIf="comments?.length === 0">
+            <div
+              class="feature-item"
+              style="margin-bottom: 15px; display: flex"
+            >
+              <p>No comments yet. Add comment to the ticket.</p>
+            </div>
+          </li>
+          <li *ngFor="let c of comments; let i = index">
+            <div
+              class="feature-item"
+              style="margin-bottom: 15px; display: flex"
+            >
+              <div class="left-icon">
+                <i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i>
+              </div>
+              <div class="right-content">
+                <h4>
+                  {{ c?.name }}
+                  <small style="font-size: 14px"
+                    >&nbsp;&nbsp; {{ c?.date }}</small
+                  >
+                </h4>
+                <p>
+                  <em>{{ c?.message }}</em>
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-4">
+        <h4>Leave a comment</h4>
+
+        <div class="contact-form">
+          <form
+            novalidate
+            (ngSubmit)="postComment()"
+            [formGroup]="addCommentForm"
+          >
+            <div class="row">
+              <div class="col-lg-12">
+                <fieldset>
+                  <input
+                    formControlName="name"
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="Your Name*"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      !addCommentForm.get('name')?.valid &&
+                      (addCommentForm.get('name')?.touched ||
+                        addCommentForm.get('name')?.dirty)
+                    "
+                    class="invalid"
+                    style="margin-bottom: 20px"
+                  >
+                    Please provide your name.
+                  </div>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <input
+                    formControlName="email"
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    pattern="^[a-zA-Z0-9_.+-]+@gmail.com+$"
+                    placeholder="Your Email*"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      addCommentForm.get('email')?.errors?.required &&
+                      (addCommentForm.get('email')?.touched ||
+                        addCommentForm.get('email')?.dirty)
+                    "
+                    class="invalid"
+                    style="margin-bottom: 20px"
+                  >
+                    Please provide your email
+                  </div>
+                  <div
+                    *ngIf="
+                      (addCommentForm.get('email')?.touched ||
+                        addCommentForm.get('email')?.dirty) &&
+                      !addCommentForm.get('email')?.valid &&
+                      addCommentForm.get('email')?.errors?.invalidEmail
+                    "
+                    class="invalid"
+                    style="margin-bottom: 20px"
+                  >
+                    Please enter in format abc@gmail.com
+                  </div>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <textarea
+                    formControlName="message"
+                    rows="6"
+                    class="form-control"
+                    id="message"
+                    placeholder="Message*"
+                    required
+                  ></textarea>
+                  <div
+                    *ngIf="
+                      addCommentForm.get('message')?.errors?.required &&
+                      (addCommentForm.get('message')?.touched ||
+                        addCommentForm.get('message')?.dirty)
+                    "
+                    class="invalid"
+                    style="margin-bottom: 20px"
+                  >
+                    Please provide message
+                  </div>
+                  <div
+                    *ngIf="
+                      !addCommentForm.get('message')?.valid &&
+                      addCommentForm.get('message')?.value !== '' &&
+                      (addCommentForm.get('message')?.touched ||
+                        addCommentForm.get('message')?.dirty)
+                    "
+                    class="invalid"
+                    style="margin-bottom: 20px"
+                  >
+                    You can enter upto 1000 characters
+                  </div>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <button
+                    type="submit"
+                    id="form-submit"
+                    class="main-button"
+                    [disabled]="!addCommentForm.valid"
+                  >
+                    Submit
+                  </button>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- ***** Form Ends ***** -->
+
+<!-- ***** Footer Start ***** -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <p>Copyright © 2021 <a href="/admin/home">Hangout Travel</a></p>
+      </div>
+    </div>
+  </div>
+</footer>

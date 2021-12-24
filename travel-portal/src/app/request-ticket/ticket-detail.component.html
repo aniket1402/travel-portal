@@ -1,0 +1,298 @@
+<header
+  class="header-area header-sticky"
+  style="position: fixed"
+  id="header-scroll"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <input type="checkbox" id="toggle-btn" />
+        <label for="toggle-btn" class="show-menu-btn"
+          ><i class="fa fa-bars"></i
+        ></label>
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a *ngIf="size >= 400" href="/home" class="logo"
+            >Hangout<em> Travel</em></a
+          >
+          <a *ngIf="size < 400" href="/home" class="logo">H<em>T</em></a>
+          <!-- ***** Logo End ***** -->
+          <!-- ***** Menu Start ***** -->
+          <ul class="navigation">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/request-ticket">Request Ticket</a></li>
+            <li><a href="/corona">Corona Stats</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li class="toggle-li">
+              <a href="/myTickets/{{ userId }}">My Tickets</a>
+            </li>
+            <li class="toggle-li">
+              <a (click)="logout()">Logout</a>
+            </li>
+            <li>
+              <div class="dropdown">
+                <i class="fa fa-user-circle" aria-hidden="true">
+                  Hi, {{ username }}</i
+                >
+                <div class="dropdown-content">
+                  <a
+                    href="/myTickets/{{ userId }}"
+                    style="margin: 8px; padding: 10px"
+                    >My Tickets</a
+                  >
+                  <a style="margin: 8px; padding: 10px" (click)="logout()"
+                    >Logout</a
+                  >
+                </div>
+              </div>
+            </li>
+            <label for="toggle-btn" class="hide-menu-btn"
+              ><i class="fa fa-times"></i
+            ></label>
+          </ul>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->
+
+<!-- ***** Call to Action Start ***** -->
+<section
+  class="section section-bg"
+  id="call-to-action"
+  style="background-image: url(assets/images/banner1.jpg)"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="cta-content">
+          <br />
+          <br />
+          <h2 style="font-size: 20px">Ticket <em>Details</em></h2>
+          <p style="font-size: 15px">Here you the details of your ticket</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ***** Call to Action End ***** -->
+
+<!-- ***** Form Starts ***** -->
+<div class="container" style="margin-top: -60px">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Tabs with icons on Card -->
+      <div class="card card-nav-tabs">
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="track">
+              <div id="submit" class="step active">
+                <span class="icon"> <i class="fa fa-ticket"></i> </span>
+                <span class="text" id="resubmit">Submitted</span>
+              </div>
+              <div id="process" class="step">
+                <span class="icon"> <i class="fa fa-cogs"></i> </span>
+                <span class="text"> In Process</span>
+              </div>
+              <div id="approve" class="step">
+                <span class="icon"> <i class="fa fa-check"></i> </span>
+                <span class="text">Approved </span>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  TicketID:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticketId }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Request Type:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.requestType }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Location City:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.locationCity }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Travel City:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.travelCity }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Travel Start Date:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ startDate }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Travel End Date :
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ endDate }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Priority:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.priority }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Passport Number:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.passportNumber }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Project Name:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.projectName }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Expense Borne by:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.expenseBorneBy }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Travel Approver Name:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.travelApproverName }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Expected Duration of Travel:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.expectedDuration }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Upper Bound on the allowed amount:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.upperBoundOnAmt }}</p>
+                </div>
+                <div class="col-md-4" style="margin-bottom: 10px">
+                  Additional Details:
+                </div>
+                <div class="col-md-8" style="margin-bottom: 10px">
+                  <p>{{ ticket.additionalDetails }}</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="mybtn mybtn-success doNotPrint"
+                (click)="printTicket()"
+              >
+                Print
+              </button>
+              <button
+                *ngIf="ticket.status !== 'IN PROCESS'"
+                type="button"
+                class="mybtn mybtn-success doNotPrint"
+                (click)="editTicket()"
+              >
+                Edit
+              </button>
+              <button
+                type="button"
+                class="mybtn mybtn-success doNotPrint"
+                (click)="returnToHome()"
+              >
+                Return to home page
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- End Tabs with icons on Card -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ***** Form Ends ***** -->
+
+<div class="container doNotPrint">
+  <h4 style="font-weight: 700; margin-top: 30px">Upload File</h4>
+  <div class="input-group mb-3">
+    <input type="file" class="form-control" (change)="onChange($event)" />
+    <label class="btn btn-success" (click)="uploadFile()">Upload</label>
+  </div>
+  <section class="tabs-content" *ngIf="employeeFiles.length">
+    <h4 style="font-weight: 700; margin-top: 30px">Uploaded Files</h4>
+    <div class="row" *ngFor="let file of employeeFiles">
+      <div class="col-lg-8">{{ file.name }}</div>
+      <div class="col-lg-4" style="text-align-last: right">
+        <label
+          class="btn btn-danger"
+          style="margin-right: 5px"
+          (click)="deleteFile(file)"
+          >Delete</label
+        >
+        <label class="btn btn-success" (click)="downloadFile(file)"
+          >Download</label
+        >
+      </div>
+    </div>
+  </section>
+  <section class="tabs-content" *ngIf="uploadedFiles.length">
+    <h4 style="font-weight: 700; margin-top: 30px">Files uploaded by Admin</h4>
+    <div class="row" *ngFor="let file of uploadedFiles">
+      <div class="col-lg-8">{{ file.name }}</div>
+      <div class="col-lg-4" style="text-align-last: right">
+        <label class="btn btn-success" (click)="downloadFile(file)"
+          >Download</label
+        >
+      </div>
+    </div>
+  </section>
+  <section class="tabs-content" *ngIf="comments?.length !== 0">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Comments</h4>
+        <ul class="features-items">
+          <li *ngFor="let c of comments; let i = index">
+            <div
+              class="feature-item"
+              style="margin-bottom: 15px; display: flex"
+            >
+              <div class="left-icon">
+                <i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i>
+              </div>
+              <div class="right-content">
+                <h4>
+                  {{ c?.name }}
+                  <small style="font-size: 14px"
+                    >&nbsp;&nbsp; {{ c?.date }}</small
+                  >
+                </h4>
+                <p>
+                  <em>{{ c?.message }}</em>
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ***** Footer Start ***** -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <p>Copyright © 2021 <a href="/home">Hangout Travel</a></p>
+      </div>
+    </div>
+  </div>
+</footer>

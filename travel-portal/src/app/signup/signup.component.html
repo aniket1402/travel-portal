@@ -1,0 +1,426 @@
+<div class="container-login100 background">
+  <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30" id="mar-top">
+    <div
+      *ngIf="error"
+      id="alert-div"
+      class="alert alert-danger alert-white rounded"
+    >
+      <button
+        (click)="closeError()"
+        id="alert-btn"
+        type="button"
+        data-dismiss="alert"
+        aria-hidden="true"
+        class="close"
+      >
+        <div class="icon">
+          <i class="fa fa-times-circle"></i>
+        </div>
+      </button>
+      Email already exists!<br />
+      <p style="color: #b94a48">Please Sign In</p>
+    </div>
+    <form
+      novalidate
+      class="login100-form validate-form"
+      (ngSubmit)="signup()"
+      [formGroup]="signUpForm"
+    >
+      <span class="login100-form-title p-b-10"> Hello, Traveller! </span>
+      <span class="login100-form-title-line p-b-37"
+        >Enter your details below</span
+      >
+
+      <div class="wrap-input100 validate-input m-b-5" id="firstName-div">
+        <input
+          class="input100"
+          type="text"
+          formControlName="firstName"
+          required
+          placeholder="First Name*"
+          pattern="^[a-zA-Z]+$"
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('firstName')?.touched ||
+                signUpForm.get('firstName')?.dirty) &&
+              !signUpForm.get('firstName')?.valid
+          }"
+        />
+        <span class="focus-input100"></span>
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('firstName')?.touched ||
+            signUpForm.get('firstName')?.dirty) &&
+          signUpForm.get('firstName')?.errors?.required
+        "
+        class="invalid-username"
+      >
+        Please enter your first name
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('firstName')?.touched ||
+            signUpForm.get('firstName')?.dirty) &&
+          signUpForm.get('firstName')?.errors?.invalidFirstName
+        "
+        class="invalid-username"
+      >
+        First Name cannot contain special characters and numbers
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('firstName')?.touched ||
+            signUpForm.get('firstName')?.dirty) &&
+          signUpForm.get('firstName')?.errors?.minlength
+        "
+        class="invalid-username"
+      >
+        Your name should contain atleast 3 characters
+      </div>
+
+      <div class="wrap-input100 validate-input m-b-5 m-t-10" id="lastName-div">
+        <input
+          class="input100"
+          type="text"
+          formControlName="lastName"
+          required
+          placeholder="Last Name*"
+          pattern="^[a-z ,.'-]+$"
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('lastName')?.touched ||
+                signUpForm.get('lastName')?.dirty) &&
+              !signUpForm.get('lastName')?.valid
+          }"
+        />
+        <span class="focus-input100"></span>
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('lastName')?.touched ||
+            signUpForm.get('lastName')?.dirty) &&
+          signUpForm.get('lastName')?.errors?.required
+        "
+        class="invalid-username"
+      >
+        Please enter your last name
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('lastName')?.touched ||
+            signUpForm.get('lastName')?.dirty) &&
+          !signUpForm.get('lastName')?.valid &&
+          signUpForm.get('lastName')?.errors?.invalidLastName
+        "
+        class="invalid-username"
+      >
+        Last Name cannot contain special characters and numbers
+      </div>
+
+      <div class="wrap-input100 validate-input m-b-5 m-t-10" id="bu-div">
+        <input
+          class="input100"
+          type="text"
+          formControlName="businessUnit"
+          required
+          placeholder="Business Unit*"
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('businessUnit')?.touched ||
+                signUpForm.get('businessUnit')?.dirty) &&
+              !signUpForm.get('businessUnit')?.valid
+          }"
+        />
+        <span class="focus-input100"></span>
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('businessUnit')?.touched ||
+            signUpForm.get('businessUnit')?.dirty) &&
+          signUpForm.get('businessUnit')?.errors?.required
+        "
+        class="invalid-username"
+      >
+        Please enter business unit
+      </div>
+
+      <div
+        class="wrap-input100 validate-input m-b-5 m-t-10"
+        id="title-div"
+        style="padding-right: 10px"
+      >
+        <select
+          class="input100"
+          formControlName="title"
+          required
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('title')?.touched ||
+                signUpForm.get('title')?.dirty) &&
+              !signUpForm.get('title')?.valid
+          }"
+          style="border: none"
+        >
+          <option [selected]="true">Select title</option>
+          <option *ngFor="let title of titles">{{ title }}</option>
+        </select>
+        <span class="focus-input100"></span>
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('title')?.touched ||
+            signUpForm.get('title')?.dirty) &&
+          signUpForm.get('title')?.errors?.required
+        "
+        class="invalid-username"
+      >
+        Please enter title
+      </div>
+
+      <div class="wrap-input100 validate-input m-b-5 m-t-10" id="email-div">
+        <input
+          class="input100"
+          type="text"
+          formControlName="email"
+          required
+          placeholder="Email*"
+          pattern="^[a-zA-Z0-9_.+-]+@gmail.com"
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('email')?.touched ||
+                signUpForm.get('email')?.dirty) &&
+              !signUpForm.get('email')?.valid
+          }"
+        />
+        <span class="focus-input100"></span>
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('email')?.touched ||
+            signUpForm.get('email')?.dirty) &&
+          signUpForm.get('email')?.errors?.required
+        "
+        class="invalid-username"
+      >
+        Please enter your email address
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('email')?.touched ||
+            signUpForm.get('email')?.dirty) &&
+          !signUpForm.get('email')?.valid &&
+          signUpForm.get('email')?.errors?.invalidEmail
+        "
+        class="invalid-username"
+      >
+        Please enter in format abc@gmail.com
+      </div>
+
+      <div class="wrap-input100 validate-input m-b-5 m-t-10" id="tele-div">
+        <input
+          class="input100"
+          type="text"
+          formControlName="telephone"
+          required
+          placeholder="Telephone*"
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('telephone')?.touched ||
+                signUpForm.get('telephone')?.dirty) &&
+              !signUpForm.get('telephone')?.valid
+          }"
+        />
+        <span class="focus-input100"></span>
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('telephone')?.touched ||
+            signUpForm.get('telephone')?.dirty) &&
+          signUpForm.get('telephone')?.errors?.required
+        "
+        class="invalid-username"
+      >
+        Please enter your telephone
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('telephone')?.touched ||
+            signUpForm.get('telephone')?.dirty) &&
+          signUpForm.get('telephone')?.value !== '' &&
+          signUpForm.get('telephone')?.errors
+        "
+        class="invalid-username"
+      >
+        You can enter upto 15 characters
+      </div>
+
+      <div class="wrap-input100 validate-input m-b-5 m-t-10" id="add1-div">
+        <input
+          class="input100"
+          type="text"
+          formControlName="address1"
+          required
+          placeholder="Address 1*"
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('address1')?.touched ||
+                signUpForm.get('address1')?.dirty) &&
+              !signUpForm.get('address1')?.valid
+          }"
+        />
+        <span class="focus-input100"></span>
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('address1')?.touched ||
+            signUpForm.get('address1')?.dirty) &&
+          signUpForm.get('address1')?.errors?.required
+        "
+        class="invalid-username"
+      >
+        Please enter your address
+      </div>
+
+      <div class="wrap-input100 validate-input m-b-5 m-t-10" id="add2-div">
+        <input
+          class="input100"
+          type="text"
+          formControlName="address2"
+          placeholder="Address 2"
+        />
+        <span class="focus-input100"></span>
+      </div>
+
+      <div class="wrap-input100 validate-input m-b-5 m-t-10" id="city-div">
+        <input
+          class="input100"
+          type="text"
+          formControlName="city"
+          required
+          placeholder="City*"
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('city')?.touched ||
+                signUpForm.get('city')?.dirty) &&
+              !signUpForm.get('city')?.valid
+          }"
+        />
+        <span class="focus-input100"></span>
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('city')?.touched || signUpForm.get('city')?.dirty) &&
+          signUpForm.get('city')?.errors?.required
+        "
+        class="invalid-username"
+      >
+        Please enter your city
+      </div>
+
+      <div
+        class="wrap-input100 validate-input m-b-5 m-t-10"
+        id="state-div"
+        style="padding-right: 10px"
+      >
+        <select
+          class="input100"
+          formControlName="state"
+          required
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('state')?.touched ||
+                signUpForm.get('state')?.dirty) &&
+              !signUpForm.get('state')?.valid
+          }"
+          style="border: none"
+        >
+          <option [selected]="true">Select state</option>
+          <option *ngFor="let state of states">{{ state["name"] }}</option>
+        </select>
+        <span class="focus-input100"></span>
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('state')?.touched ||
+            signUpForm.get('state')?.dirty) &&
+          signUpForm.get('state')?.errors?.required
+        "
+        class="invalid-username"
+      >
+        Please select your state
+      </div>
+
+      <div class="wrap-input100 validate-input m-b-5 m-t-10" id="zip-div">
+        <input
+          class="input100"
+          type="text"
+          formControlName="zip"
+          required
+          placeholder="Zip*"
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('zip')?.touched ||
+                signUpForm.get('zip')?.dirty) &&
+              !signUpForm.get('zip')?.valid
+          }"
+        />
+        <span class="focus-input100"></span>
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('zip')?.touched || signUpForm.get('zip')?.dirty) &&
+          signUpForm.get('zip')?.errors?.required
+        "
+        class="invalid-username"
+      >
+        Please enter your zip code
+      </div>
+
+      <div
+        class="wrap-input100 validate-input m-b-5 m-t-10"
+        id="country-div"
+        style="padding-right: 10px"
+      >
+        <select
+          class="input100"
+          formControlName="country"
+          required
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('country')?.touched ||
+                signUpForm.get('country')?.dirty) &&
+              !signUpForm.get('country')?.valid
+          }"
+          style="border: none"
+        >
+          <option [selected]="true">Select country</option>
+          <option *ngFor="let country of countries">
+            {{ country["Country"] }}
+          </option>
+        </select>
+        <span class="focus-input100"></span>
+      </div>
+      <div
+        *ngIf="
+          (signUpForm.get('country')?.touched ||
+            signUpForm.get('country')?.dirty) &&
+          signUpForm.get('country')?.errors?.required
+        "
+        class="invalid-username"
+      >
+        Please select your country
+      </div>
+
+      <div class="container-login100-form-btn m-t-20">
+        <button class="login100-form-btn" [disabled]="!signUpForm.valid">
+          Sign Up
+        </button>
+      </div>
+
+      <div class="text-center hov1 p-t-47">
+        <a href="/signin" class="txt1"> Sign In </a>
+      </div>
+    </form>
+  </div>
+</div>

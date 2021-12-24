@@ -1,0 +1,264 @@
+<header
+  class="header-area header-sticky"
+  style="position: fixed"
+  id="header-scroll"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <input type="checkbox" id="toggle-btn" />
+        <label for="toggle-btn" class="show-menu-btn"
+          ><i class="fa fa-bars"></i
+        ></label>
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a *ngIf="size >= 400" href="/home" class="logo"
+            >Hangout<em> Travel</em></a
+          >
+          <a *ngIf="size < 400" href="/home" class="logo">H<em>T</em></a>
+          <!-- ***** Logo End ***** -->
+          <!-- ***** Menu Start ***** -->
+          <ul class="navigation">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/request-ticket">Request Ticket</a></li>
+            <li><a href="/corona">Corona Stats</a></li>
+            <li><a href="/contact" class="active">Contact</a></li>
+            <li class="toggle-li">
+              <a href="/myTickets/{{ userId }}">My Tickets</a>
+            </li>
+            <li class="toggle-li">
+              <a (click)="logout()">Logout</a>
+            </li>
+            <li>
+              <div class="dropdown">
+                <i class="fa fa-user-circle" aria-hidden="true">
+                  Hi, {{ username }}</i
+                >
+                <div class="dropdown-content">
+                  <a
+                    href="/myTickets/{{ userId }}"
+                    style="margin: 8px; padding: 10px"
+                    >My Tickets</a
+                  >
+                  <a style="margin: 8px; padding: 10px" (click)="logout()"
+                    >Logout</a
+                  >
+                </div>
+              </div>
+            </li>
+            <label for="toggle-btn" class="hide-menu-btn"
+              ><i class="fa fa-times"></i
+            ></label>
+          </ul>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->
+
+<section
+  class="section section-bg"
+  id="call-to-action"
+  style="background-image: url(../../assets/images/banner1.jpg)"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="cta-content">
+          <br />
+          <br />
+          <h2>Feel free to <em>Contact Us</em></h2>
+          <p>We will be sure to get back to you as soon as possible</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ***** Features Item Start ***** -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="section-heading">
+          <h2>contact <em> info</em></h2>
+          <img src="assets/images/line-dec.png" alt="waves" />
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="icon">
+          <i class="fa fa-phone"></i>
+        </div>
+
+        <h5><a href="#">+1 333 4040 5566</a></h5>
+
+        <br />
+      </div>
+
+      <div class="col-md-4">
+        <div class="icon">
+          <i class="fa fa-envelope"></i>
+        </div>
+
+        <h5><a href="#">contact@gmail.com</a></h5>
+
+        <br />
+      </div>
+
+      <div class="col-md-4">
+        <div class="icon">
+          <i class="fa fa-map-marker"></i>
+        </div>
+
+        <h5>
+          13, Subedar Major Laxmi Chand Road, Udyog Vihar, Sector 18, Gurugram
+          122015, India
+        </h5>
+
+        <br />
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ***** Features Item End ***** -->
+
+<!-- ***** Contact Us Area Starts ***** -->
+<section class="section" id="contact-us" style="margin-top: 0">
+  <div class="row" style="margin: 0px">
+    <div class="col-md-12" style="padding: 0px">
+      <div
+        class="contact-form section-bg"
+        style="background-image: url(../../assets/images/contact-1-720x480.jpg)"
+      >
+        <form
+          id="contact"
+          novalidate
+          (ngSubmit)="sendMessage()"
+          [formGroup]="contactForm"
+        >
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <fieldset>
+                <input
+                  formControlName="name"
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Your Name*"
+                  required
+                />
+                <div
+                  *ngIf="
+                    !contactForm.get('name')?.valid &&
+                    (contactForm.get('name')?.touched ||
+                      contactForm.get('name')?.dirty)
+                  "
+                  class="invalid"
+                  style="margin-bottom: 20px"
+                >
+                  Please provide your name.
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <fieldset>
+                <input
+                  formControlName="email"
+                  type="text"
+                  class="form-control"
+                  id="email"
+                  pattern="^[a-zA-Z0-9_.+-]+@gmail.com+$"
+                  placeholder="Your Email*"
+                  required
+                />
+                <div
+                  *ngIf="
+                    contactForm.get('email')?.errors?.required &&
+                    (contactForm.get('email')?.touched ||
+                      contactForm.get('email')?.dirty)
+                  "
+                  class="invalid"
+                  style="margin-bottom: 20px"
+                >
+                  Please provide your email
+                </div>
+                <div
+                  *ngIf="
+                    (contactForm.get('email')?.touched ||
+                      contactForm.get('email')?.dirty) &&
+                    !contactForm.get('email')?.valid &&
+                    contactForm.get('email')?.errors?.invalidEmail
+                  "
+                  class="invalid"
+                  style="margin-bottom: 20px"
+                >
+                  Please enter in format abc@gmail.com
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <fieldset>
+                <input
+                  formControlName="subject"
+                  type="text"
+                  id="subject"
+                  placeholder="Subject"
+                />
+              </fieldset>
+            </div>
+            <div class="col-lg-12">
+              <fieldset>
+                <textarea
+                  formControlName="message"
+                  rows="6"
+                  class="form-control"
+                  id="message"
+                  placeholder="Message*"
+                  required
+                ></textarea>
+                <div
+                  *ngIf="
+                    contactForm.get('message')?.errors?.required &&
+                    (contactForm.get('message')?.touched ||
+                      contactForm.get('message')?.dirty)
+                  "
+                  class="invalid"
+                  style="margin-bottom: 20px"
+                >
+                  Please provide message
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-lg-12">
+              <fieldset>
+                <button
+                  type="submit"
+                  id="form-submit"
+                  class="main-button"
+                  [disabled]="!contactForm.valid"
+                >
+                  Send Message
+                </button>
+              </fieldset>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ***** Contact Us Area Ends ***** -->
+
+<!-- ***** Footer Start ***** -->
+<footer style="background-color: white">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <p>Copyright © 2021 <a href="/home">Hangout Travel</a></p>
+      </div>
+    </div>
+  </div>
+</footer>

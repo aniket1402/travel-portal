@@ -1,0 +1,343 @@
+<!-- ***** Header Area Start ***** -->
+<header
+  class="header-area header-sticky"
+  style="position: fixed"
+  id="header-scroll"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <input type="checkbox" id="toggle-btn" />
+        <label for="toggle-btn" class="show-menu-btn"
+          ><i class="fa fa-bars"></i
+        ></label>
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a *ngIf="size >= 400" href="/home" class="logo"
+            >Hangout<em> Travel</em></a
+          >
+          <a *ngIf="size < 400" href="/home" class="logo">H<em>T</em></a>
+          <!-- ***** Logo End ***** -->
+          <!-- ***** Menu Start ***** -->
+          <ul class="navigation">
+            <li><a href="/home" class="active">Home</a></li>
+            <li><a href="/request-ticket">Request Ticket</a></li>
+            <li><a href="/corona">Corona Stats</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li class="toggle-li">
+              <a href="/myTickets/{{ userId }}">My Tickets</a>
+            </li>
+            <li class="toggle-li">
+              <a (click)="logout()">Logout</a>
+            </li>
+            <li>
+              <div class="dropdown">
+                <i class="fa fa-user-circle" aria-hidden="true">
+                  Hi, {{ username }}</i
+                >
+                <div class="dropdown-content">
+                  <a
+                    href="/myTickets/{{ userId }}"
+                    style="margin: 8px; padding: 10px"
+                    >My Tickets</a
+                  >
+                  <a style="margin: 8px; padding: 10px" (click)="logout()"
+                    >Logout</a
+                  >
+                </div>
+              </div>
+            </li>
+            <label for="toggle-btn" class="hide-menu-btn"
+              ><i class="fa fa-times"></i
+            ></label>
+          </ul>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div
+      class="alert alert-warning"
+      style="
+        display: flex;
+        color: brown;
+        background-color: rgb(245, 245, 105);
+        border-color: yellow;
+      "
+    >
+      <p style="margin: 0px">
+        <strong>Know before you go.</strong> The restrictions surrounding
+        COVID-19 change often. Please stay informed before traveling. Your
+        safety is our priority. To help you further, we have put together a
+        <a href="/corona" style="color: black; border-bottom: 1px solid black"
+          >travel restrictions and corona stats</a
+        >
+        for each country. Please feel free to connect on our toll-free number:
+        1800-889-8888
+      </p>
+      <button
+        type="button"
+        class="close"
+        style="margin-bottom: auto"
+        data-dismiss="alert"
+        aria-hidden="true"
+      >
+        ×
+      </button>
+    </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->
+
+<!-- ***** Main Banner Area Start ***** -->
+<div class="main-banner" id="top">
+  <video autoplay muted loop id="bg-video" [muted]="true">
+    <source src="assets/images/video.mp4" type="video/mp4" />
+  </video>
+
+  <div class="video-overlay header-text">
+    <div class="caption">
+      <h6>Request for ticket, hotel rooms etc...</h6>
+      <h2>Portal for <em>Work related Travel</em></h2>
+      <div class="main-button">
+        <a href="/request-ticket">Request Ticket</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+<!-- ***** Cars Starts ***** -->
+<section class="section" id="trainers">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="section-heading">
+          <h2>Top <em>Destinations</em></h2>
+          <img src="assets/images/line-dec.png" alt="" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="trainer-item">
+          <div class="image-thumb">
+            <img
+              class="brighten"
+              src="http://3.bp.blogspot.com/_qrAsr6CrHiA/TR92gbhkjNI/AAAAAAAAAAQ/0EmQD6-p-CQ/s1600/Bangalore+Palace.jpg"
+              alt=""
+            />
+          </div>
+          <div class="down-content" style="text-align: center">
+            <h4 style="margin: 10px 0px 0px 0px">Bengaluru</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="trainer-item">
+          <div class="image-thumb">
+            <img
+              class="brighten"
+              src="https://th.bing.com/th/id/OIP.mcNt-RqPRIQWLHAxHX3n_wHaE8"
+              alt=""
+            />
+          </div>
+          <div class="down-content" style="text-align: center">
+            <h4 style="margin: 10px 0px 0px 0px">Tokyo</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="trainer-item">
+          <div class="image-thumb">
+            <img
+              class="brighten"
+              src="https://goldenemperor.com/uploads/media/sites/2/2018/09/bangkok-wallpaper-12.jpg"
+              alt=""
+            />
+          </div>
+          <div class="down-content" style="text-align: center">
+            <h4 style="margin: 10px 0px 0px 0px">Bangkok</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="trainer-item">
+          <div class="image-thumb">
+            <img
+              class="brighten"
+              src="https://i0.wp.com/thebigbus.com.au/wp-content/uploads/2018/07/bigstock-224570095.jpg"
+              alt=""
+            />
+          </div>
+          <div class="down-content" style="text-align: center">
+            <h4 style="margin: 10px 0px 0px 0px">Singapore</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="trainer-item">
+          <div class="image-thumb">
+            <img
+              class="brighten"
+              src="https://www.booqify.com/wp-content/uploads/2017/08/colombo-sri-lanka-boooqify.jpg"
+              alt=""
+            />
+          </div>
+          <div class="down-content" style="text-align: center">
+            <h4 style="margin: 10px 0px 0px 0px">Colombo</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="trainer-item">
+          <div class="image-thumb">
+            <img
+              class="brighten"
+              src="https://fooditraveler.com/wp-content/uploads/2021/01/gettyimages-631154775-612x612-1.jpg"
+              alt=""
+            />
+          </div>
+          <div class="down-content" style="text-align: center">
+            <h4 style="margin: 10px 0px 0px 0px">Gurugram</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+  </div>
+</section>
+<!-- ***** Cars Ends ***** -->
+
+<section
+  class="section section-bg"
+  id="schedule"
+  style="background-image: url(../../assets/images/maps.gif)"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="section-heading dark-bg">
+          <h2>About <em>Us</em></h2>
+          <img src="assets/images/line-dec.png" alt="" />
+          <p>
+            We have been focused on bringing our employees the best in esteem
+            and quality work related travel.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="cta-content text-center">
+          <p>
+            We’re a worker claimed travel organization secured by our qualities,
+            trustworthiness and commitment to employee benefit.
+          </p>
+
+          <p>
+            Regardless of whether it’s travel ticket, hotel stay, visa or work
+            permit for your movement, Hangout Travel offers everything under one
+            umbrella.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ***** Blog Start ***** -->
+<section
+  class="section"
+  id="our-classes"
+  style="
+    background-image: url(../../assets/images/man.gif);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 300px;
+    background-position: center left;
+  "
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="section-heading">
+          <h2>Our <em>Services</em></h2>
+          <img src="assets/images/line-dec.png" alt="" />
+        </div>
+      </div>
+    </div>
+    <div class="row" style="text-align: center">
+      <div class="col-sm-3">
+        <i class="fa fa-ticket fa-4x icon"></i>
+      </div>
+      <div class="col-sm-3">
+        <i class="fa fa-bed fa-4x icon"></i>
+      </div>
+      <div class="col-sm-3">
+        <i class="fa fa-cc-visa fa-4x icon"></i>
+      </div>
+      <div class="col-sm-3">
+        <i class="fa fa-briefcase fa-4x icon"></i>
+      </div>
+
+      <div class="col-sm-3">
+        <p style="margin-top: 30px; color: #000; font-weight: 500">
+          Travel Ticket
+        </p>
+      </div>
+      <div class="col-sm-3">
+        <p style="margin-top: 30px; color: #000; font-weight: 500">
+          Hotel Stay
+        </p>
+      </div>
+      <div class="col-sm-3">
+        <p style="margin-top: 30px; color: #000; font-weight: 500">Visa</p>
+      </div>
+      <div class="col-sm-3">
+        <p style="margin-top: 30px; color: #000; font-weight: 500">
+          Work Permit
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ***** Blog End ***** -->
+
+<!-- ***** Call to Action Start ***** -->
+<section
+  class="section section-bg"
+  id="call-to-action"
+  style="background-image: url(../../assets/images/contact-1-720x480.jpg)"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="cta-content">
+          <h2>Send us a <em>message</em></h2>
+          <p>
+            Want to get in touch? We'd love to hear from you. Here's how you can
+            reach us...
+          </p>
+          <div class="main-button">
+            <a href="/contact">Contact us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ***** Call to Action End ***** -->
+
+<!-- ***** Footer Start ***** -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <p>Copyright © 2021 <a href="/home">Hangout Travel</a></p>
+      </div>
+    </div>
+  </div>
+</footer>

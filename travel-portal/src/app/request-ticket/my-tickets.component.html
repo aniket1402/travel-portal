@@ -1,0 +1,162 @@
+<header
+  class="header-area header-sticky"
+  style="position: fixed"
+  id="header-scroll"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <input type="checkbox" id="toggle-btn" />
+        <label for="toggle-btn" class="show-menu-btn"
+          ><i class="fa fa-bars"></i
+        ></label>
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a *ngIf="size >= 400" href="/home" class="logo"
+            >Hangout<em> Travel</em></a
+          >
+          <a *ngIf="size < 400" href="/home" class="logo">H<em>T</em></a>
+          <!-- ***** Logo End ***** -->
+          <!-- ***** Menu Start ***** -->
+          <ul class="navigation">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/request-ticket">Request Ticket</a></li>
+            <li><a href="/corona">Corona Stats</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li class="toggle-li">
+              <a href="/myTickets/{{ userId }}" class="active">My Tickets</a>
+            </li>
+            <li class="toggle-li">
+              <a (click)="logout()">Logout</a>
+            </li>
+            <li>
+              <div class="dropdown">
+                <i class="fa fa-user-circle" aria-hidden="true">
+                  Hi, {{ username }}</i
+                >
+                <div class="dropdown-content">
+                  <a
+                    href="/myTickets/{{ userId }}"
+                    class="active"
+                    style="margin: 8px; padding: 10px"
+                    >My Tickets</a
+                  >
+                  <a style="margin: 8px; padding: 10px" (click)="logout()"
+                    >Logout</a
+                  >
+                </div>
+              </div>
+            </li>
+            <label for="toggle-btn" class="hide-menu-btn"
+              ><i class="fa fa-times"></i
+            ></label>
+          </ul>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ***** Call to Action Start ***** -->
+<section
+  class="section section-bg"
+  id="call-to-action"
+  style="background-image: url(assets/images/banner1.jpg)"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="cta-content">
+          <br />
+          <br />
+          <h2 style="font-size: 20px">Your <em>Tickets</em></h2>
+          <p style="font-size: 15px">Here are the tickets you requested</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ***** Call to Action End ***** -->
+<div class="container mt-4">
+  <div class="card mb-4">
+    <div class="card-body" style="text-align: center">
+      <p style="font-size: 20px">Your Tickets</p>
+      <!--Table-->
+      <table class="table table-striped sortable">
+        <!--Table head-->
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Request Type</th>
+            <th>Created On</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <!--Table head-->
+        <!--Table body-->
+        <tbody>
+          <tr
+            *ngFor="
+              let ticket of tickets
+                | paginate
+                  : {
+                      itemsPerPage: pageSize,
+                      currentPage: page,
+                      totalItems: count
+                    };
+              let i = index
+            "
+          >
+            <th scope="row" (click)="getTicket(ticket.id)">
+              {{ pageSize * (page - 1) + i + 1 }}
+            </th>
+            <td>{{ ticket.requestType }}</td>
+            <td>{{ submittedDates[pageSize * (page - 1) + i] }}</td>
+            <td>{{ ticket.status }}</td>
+          </tr>
+        </tbody>
+        <!--Table body-->
+      </table>
+      <!--Table-->
+    </div>
+    <div class="col-md-12 pagination-outer">
+      <pagination-template
+        #p="paginationApi"
+        (pageChange)="handlePageChange($event)"
+      >
+        <div class="custom-pagination">
+          <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+            <span *ngIf="!p.isFirstPage()" (click)="p.previous()"> < </span>
+          </div>
+          <div
+            class="page-number"
+            *ngFor="let page of p.pages"
+            [class.current]="p.getCurrent() === page.value"
+          >
+            <span
+              (click)="p.setCurrent(page.value)"
+              *ngIf="p.getCurrent() !== page.value"
+              >{{ page.label }}</span
+            >
+            <div *ngIf="p.getCurrent() === page.value">
+              <span>{{ page.label }}</span>
+            </div>
+          </div>
+          <div class="pagination-next" [class.disabled]="p.isLastPage()">
+            <span *ngIf="!p.isLastPage()" (click)="p.next()"> > </span>
+          </div>
+        </div>
+      </pagination-template>
+    </div>
+  </div>
+</div>
+<!-- ***** Footer Start ***** -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <p>Copyright © 2021 <a href="/home">Hangout Travel</a></p>
+      </div>
+    </div>
+  </div>
+</footer>

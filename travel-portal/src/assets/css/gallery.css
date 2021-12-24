@@ -1,0 +1,9 @@
+.icon {
+  background: #57C84D;
+  padding: 20px;
+  width: 50px;
+  text-align: center;
+  display: inline;
+  border-radius: 50%;
+  line-height: 50px;
+}

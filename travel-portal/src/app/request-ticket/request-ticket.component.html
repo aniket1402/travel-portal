@@ -1,0 +1,1081 @@
+<header class="header-area header-sticky" style="position: fixed" id="header-scroll">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <input type="checkbox" id="toggle-btn" />
+        <label for="toggle-btn" class="show-menu-btn"><i class="fa fa-bars"></i></label>
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a *ngIf="size >= 400" href="/home" class="logo">Hangout<em> Travel</em></a>
+          <a *ngIf="size < 400" href="/home" class="logo">H<em>T</em></a>
+          <!-- ***** Logo End ***** -->
+          <!-- ***** Menu Start ***** -->
+          <ul class="navigation">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/request-ticket" class="active">Request Ticket</a></li>
+            <li><a href="/corona">Corona Stats</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li class="toggle-li"><a href="/myTickets/{{userId}}">My Tickets</a></li>
+            <li class="toggle-li">
+              <a (click)="logout()">Logout</a>
+            </li>
+            <li>
+              <div class="dropdown">
+                <i class="fa fa-user-circle" aria-hidden="true">
+                  Hi, {{username}}</i>
+                <div class="dropdown-content">
+                  <a href="/myTickets/{{userId}}" style="margin: 8px; padding: 10px">My Tickets</a>
+                  <a style="margin: 8px; padding: 10px" (click)="logout()">Logout</a>
+                </div>
+              </div>
+            </li>
+            <label for="toggle-btn" class="hide-menu-btn"><i class="fa fa-times"></i></label>
+          </ul>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->
+
+<!-- ***** Call to Action Start ***** -->
+<section class="section section-bg" id="call-to-action" style="background-image: url(../../assets/images/banner1.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="cta-content">
+          <br>
+          <br>
+          <h2 style="font-size: 20px;">Request <em>Tickets</em></h2>
+          <p style="font-size: 15px;">Here you can request for a ticket by filling the form below</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ***** Call to Action End ***** -->
+
+<!-- ***** Form Starts ***** -->
+<div class="container" style="margin-top: -50px;">
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <!-- Tabs with icons on Card -->
+      <div class="card card-nav-tabs">
+        <div class="card-header card-header-primary">
+          <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+          <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+              <ul class="nav nav-tabs" data-tabs="tabs" style="border-bottom: 0px; place-content: center;">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#travel-ticket" (click)="setRequestType('Travel Ticket')"
+                    data-toggle="tab">
+                    <i class="fa fa-ticket fa-2x"></i>
+                    <div>Travel Ticket</div>
+                    <div class="bor-der"></div>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#hotel-stay" (click)="setRequestType('Hotel Stay')" data-toggle="tab">
+                    <i class="fa fa-bed fa-2x"></i>
+                    <div>Hotel Stay</div>
+                    <div class="bor-der"></div>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#visa" (click)="setRequestType('Visa')" data-toggle="tab">
+                    <i class="fa fa-cc-visa fa-2x"></i>
+                    <div>Visa</div>
+                    <div class="bor-der"></div>
+                  </a>
+
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#work-permit" (click)="setRequestType('Work Permit')" data-toggle="tab">
+                    <i class="fa fa-briefcase fa-2x"></i>
+                    <div>Work Permit</div>
+                    <div class="bor-der"></div>
+                  </a>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <form novalidate (ngSubmit)="requestTicket()" [formGroup]="ticketForm">
+          <div class="card-body ">
+            <div class="tab-content">
+              <div class="tab-pane active" id="travel-ticket">
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <select formControlName="from" class="form-select" aria-label="Floating label select example">
+                        <option [value]="fc" *ngFor="let fc of cities">
+                          {{fc}}</option>
+                      </select>
+                      <label for="floatingSelectGrid">From</label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <select formControlName="to" class="form-select" aria-label="Floating label select example">
+                        <option [value]="tc" *ngFor="let tc of cities">
+                          {{tc}}</option>
+                      </select>
+                      <label for="floatingSelectGrid">To</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input formControlName="departureDate" class="form-control" type="date"
+                        style="background-image: none;" name="departureDate">
+                      <label for="floatingSelectGrid">Departure Date</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('departureDate')?.touched || ticketForm.get('departureDate')?.dirty) && ticketForm.get('departureDate')?.errors?.invalidDepartureDate"
+                      class="invalid">
+                      Departure date is invalid
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input formControlName="returnDate" class="form-control" type="date"
+                        style="background-image: none;" name="returnDate">
+                      <label for="floatingSelectGrid">Return Date</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('returnDate')?.touched || ticketForm.get('returnDate')?.dirty) && ticketForm.get('returnDate')?.errors?.invalidReturnDate"
+                      class="invalid">
+                      Return date is invalid
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('returnDate')?.touched || ticketForm.get('returnDate')?.dirty) && ticketForm.get('returnDate')?.errors?.invalidDiffDate"
+                      class="invalid">
+                      Return date must be 1 week after the departure date
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <select formControlName="priority" class="form-select" aria-label="Floating label select example">
+                        <option [selected]="true" value="Normal">Normal</option>
+                        <option value="Urgent">Urgent</option>
+                        <option value="Immediate">Immediate</option>
+                      </select>
+                      <label for="floatingSelectGrid">Priority</label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input formControlName="passportNumber" class="form-control" style="background-image: none;"
+                        type="text">
+                      <label for="">Passport Number</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('passportNumber')?.touched || ticketForm.get('passportNumber')?.dirty) && ticketForm.get('passportNumber')?.errors?.required"
+                      class="invalid">
+                      Please enter your passport number
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('passportNumber')?.touched || ticketForm.get('passportNumber')?.dirty) && ticketForm.get('passportNumber')?.value !== '' && (ticketForm.get('passportNumber')?.value.length < 6)  && ticketForm.get('passportNumber')?.errors"
+                      class="invalid">
+                      Passport number should contain atleast 6 characters
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('passportNumber')?.touched || ticketForm.get('passportNumber')?.dirty) && (ticketForm.get('passportNumber')?.value >= 6)  && ticketForm.get('passportNumber')?.errors"
+                      class="invalid">
+                      You can enter upto 25 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 20px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="projectName" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Project Name</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('projectName')?.touched || ticketForm.get('projectName')?.dirty) && ticketForm.get('projectName')?.errors?.required"
+                      class="invalid">
+                      Please enter your project name
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('projectName')?.touched || ticketForm.get('projectName')?.dirty) && ticketForm.get('projectName')?.value !== '' && (ticketForm.get('projectName')?.value.length < 3)  && ticketForm.get('projectName')?.errors"
+                      class="invalid">
+                      Project name should contain atleast 3 characters
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('projectName')?.touched || ticketForm.get('projectName')?.dirty) && (ticketForm.get('projectName')?.value.length >= 3)  && ticketForm.get('projectName')?.errors"
+                      class="invalid">
+                      You can enter upto 100 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px; padding-left: 2px;">
+                  <div class="col-md">
+                    <legend style="font-size: 1rem;">Expense Borne By:</legend>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="expenseBy" class="form-check-input" type="radio" id="gridRadios1"
+                        value="Company">
+                      <label class="form-check-label" for="gridRadios1">
+                        Company
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="expenseBy" class="form-check-input" type="radio" id="gridRadios2"
+                        value="Client">
+                      <label class="form-check-label" for="gridRadios2">
+                        Client
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="approverName" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Travel Approver Name</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('approverName')?.touched || ticketForm.get('approverName')?.dirty) && ticketForm.get('approverName')?.errors?.required"
+                      class="invalid">
+                      Please enter your approver name
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('approverName')?.touched || ticketForm.get('approverName')?.dirty) && (ticketForm.get('approverName')?.value !== '') && (ticketForm.get('approverName')?.value.length < 3) && ticketForm.get('approverName')?.errors"
+                      class="invalid">
+                      Travel approver name should contain atleast 3 characters
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('approverName')?.touched || ticketForm.get('approverName')?.dirty) && (ticketForm.get('approverName')?.value.length >= 3)  && ticketForm.get('approverName')?.errors"
+                      class="invalid">
+                      You can enter upto 100 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="expectedDuration" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Expected Duration of travel (in days)</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('expectedDuration')?.touched || ticketForm.get('expectedDuration')?.dirty) && (ticketForm.get('expectedDuration')?.value !== '')  && ticketForm.get('expectedDuration')?.errors"
+                      class="invalid">
+                      You can enter upto 100 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px; padding-left: 2px;">
+                  <div class="col-md">
+                    <legend style="font-size: 1rem;">Any upper bound on allowed amount?</legend>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="isUpperBound" class="form-check-input" type="radio" id="gridRadios3"
+                        value="Yes">
+                      <label class="form-check-label" for="gridRadios3">
+                        Yes
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="isUpperBound" class="form-check-input" type="radio" id="gridRadios4"
+                        value="No">
+                      <label class="form-check-label" for="gridRadios4">
+                        No
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="ticketForm.get('isUpperBound')?.value === 'Yes'" class="row g-2"
+                  style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="upperBoundAmt" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Please specify upper bound on allowed amount</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('upperBoundAmt')?.touched || ticketForm.get('upperBoundAmt')?.dirty) && (ticketForm.get('upperBoundAmt')?.value !== '')  && ticketForm.get('upperBoundAmt')?.errors"
+                      class="invalid">
+                      You can enter upto 500 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="additionalDetails" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Additional details</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('additionalDetails')?.touched || ticketForm.get('additionalDetails')?.dirty) && (ticketForm.get('additionalDetails')?.value !== '')  && ticketForm.get('additionalDetails')?.errors"
+                      class="invalid">
+                      You can enter upto 1000 characters
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="tab-pane" id="hotel-stay">
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <select formControlName="from" class="form-select" aria-label="Floating label select example">
+                        <option [value]="fc" *ngFor="let fc of cities">
+                          {{fc}}</option>
+                      </select>
+                      <label for="floatingSelectGrid">From</label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <select formControlName="to" class="form-select" aria-label="Floating label select example">
+                        <option [value]="tc" *ngFor="let tc of cities">
+                          {{tc}}</option>
+                      </select>
+                      <label for="floatingSelectGrid">To</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input formControlName="departureDate" class="form-control" type="date"
+                        style="background-image: none;" name="departureDate">
+                      <label for="floatingSelectGrid">Departure Date</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('departureDate')?.touched || ticketForm.get('departureDate')?.dirty) && ticketForm.get('departureDate')?.errors?.invalidDepartureDate"
+                      class="invalid">
+                      Departure date is invalid
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input formControlName="returnDate" class="form-control" type="date"
+                        style="background-image: none;" name="returnDate">
+                      <label for="floatingSelectGrid">Return Date</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('returnDate')?.touched || ticketForm.get('returnDate')?.dirty) && ticketForm.get('returnDate')?.errors?.invalidReturnDate"
+                      class="invalid">
+                      Return date is invalid
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('returnDate')?.touched || ticketForm.get('returnDate')?.dirty) && ticketForm.get('returnDate')?.errors?.invalidDiffDate"
+                      class="invalid">
+                      Return date must be 1 week after the departure date
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <select formControlName="priority" class="form-select" aria-label="Floating label select example">
+                        <option [selected]="true" value="Normal">Normal</option>
+                        <option value="Urgent">Urgent</option>
+                        <option value="Immediate">Immediate</option>
+                      </select>
+                      <label for="floatingSelectGrid">Priority</label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input formControlName="passportNumber" class="form-control" style="background-image: none;"
+                        type="text">
+                      <label for="">Passport Number</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('passportNumber')?.touched || ticketForm.get('passportNumber')?.dirty) && ticketForm.get('passportNumber')?.errors?.required"
+                      class="invalid">
+                      Please enter your passport number
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('passportNumber')?.touched || ticketForm.get('passportNumber')?.dirty) && ticketForm.get('passportNumber')?.value !== '' && (ticketForm.get('passportNumber')?.value.length < 6)  && ticketForm.get('passportNumber')?.errors"
+                      class="invalid">
+                      Passport number should contain atleast 6 characters
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('passportNumber')?.touched || ticketForm.get('passportNumber')?.dirty) && (ticketForm.get('passportNumber')?.value >= 6)  && ticketForm.get('passportNumber')?.errors"
+                      class="invalid">
+                      You can enter upto 25 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 20px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="projectName" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Project Name</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('projectName')?.touched || ticketForm.get('projectName')?.dirty) && ticketForm.get('projectName')?.errors?.required"
+                      class="invalid">
+                      Please enter your project name
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('projectName')?.touched || ticketForm.get('projectName')?.dirty) && ticketForm.get('projectName')?.value !== '' && (ticketForm.get('projectName')?.value.length < 3)  && ticketForm.get('projectName')?.errors"
+                      class="invalid">
+                      Project name should contain atleast 3 characters
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('projectName')?.touched || ticketForm.get('projectName')?.dirty) && (ticketForm.get('projectName')?.value.length >= 3)  && ticketForm.get('projectName')?.errors"
+                      class="invalid">
+                      You can enter upto 100 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px; padding-left: 2px;">
+                  <div class="col-md">
+                    <legend style="font-size: 1rem;">Expense Borne By:</legend>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="expenseBy" class="form-check-input" type="radio" id="gridRadios5"
+                        value="Company">
+                      <label class="form-check-label" for="gridRadios5">
+                        Company
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="expenseBy" class="form-check-input" type="radio" id="gridRadios6"
+                        value="Client">
+                      <label class="form-check-label" for="gridRadios6">
+                        Client
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="approverName" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Travel Approver Name</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('approverName')?.touched || ticketForm.get('approverName')?.dirty) && ticketForm.get('approverName')?.errors?.required"
+                      class="invalid">
+                      Please enter your approver name
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('approverName')?.touched || ticketForm.get('approverName')?.dirty) && (ticketForm.get('approverName')?.value !== '') && (ticketForm.get('approverName')?.value.length < 3) && ticketForm.get('approverName')?.errors"
+                      class="invalid">
+                      Travel approver name should contain atleast 3 characters
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('approverName')?.touched || ticketForm.get('approverName')?.dirty) && (ticketForm.get('approverName')?.value.length >= 3)  && ticketForm.get('approverName')?.errors"
+                      class="invalid">
+                      You can enter upto 100 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="expectedDuration" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Expected Duration of travel (in days)</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('expectedDuration')?.touched || ticketForm.get('expectedDuration')?.dirty) && (ticketForm.get('expectedDuration')?.value !== '')  && ticketForm.get('expectedDuration')?.errors"
+                      class="invalid">
+                      You can enter upto 100 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px; padding-left: 2px;">
+                  <div class="col-md">
+                    <legend style="font-size: 1rem;">Any upper bound on allowed amount?</legend>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="isUpperBound" class="form-check-input" type="radio" id="gridRadios7"
+                        value="Yes">
+                      <label class="form-check-label" for="gridRadios7">
+                        Yes
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="isUpperBound" class="form-check-input" type="radio" id="gridRadios8"
+                        value="No">
+                      <label class="form-check-label" for="gridRadios8">
+                        No
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="ticketForm.get('isUpperBound')?.value === 'Yes'" class="row g-2"
+                  style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="upperBoundAmt" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Please specify upper bound on allowed amount</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('upperBoundAmt')?.touched || ticketForm.get('upperBoundAmt')?.dirty) && (ticketForm.get('upperBoundAmt')?.value !== '')  && ticketForm.get('upperBoundAmt')?.errors"
+                      class="invalid">
+                      You can enter upto 500 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="additionalDetails" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Additional details</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('additionalDetails')?.touched || ticketForm.get('additionalDetails')?.dirty) && (ticketForm.get('additionalDetails')?.value !== '')  && ticketForm.get('additionalDetails')?.errors"
+                      class="invalid">
+                      You can enter upto 1000 characters
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="visa">
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <select formControlName="from" class="form-select" aria-label="Floating label select example">
+                        <option [value]="fc" *ngFor="let fc of cities">
+                          {{fc}}</option>
+                      </select>
+                      <label for="floatingSelectGrid">From</label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <select formControlName="to" class="form-select" aria-label="Floating label select example">
+                        <option [value]="tc" *ngFor="let tc of cities">
+                          {{tc}}</option>
+                      </select>
+                      <label for="floatingSelectGrid">To</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input formControlName="departureDate" class="form-control" type="date"
+                        style="background-image: none;" name="departureDate">
+                      <label for="floatingSelectGrid">Departure Date</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('departureDate')?.touched || ticketForm.get('departureDate')?.dirty) && ticketForm.get('departureDate')?.errors?.invalidDepartureDate"
+                      class="invalid">
+                      Departure date is invalid
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input formControlName="returnDate" class="form-control" type="date"
+                        style="background-image: none;" name="returnDate">
+                      <label for="floatingSelectGrid">Return Date</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('returnDate')?.touched || ticketForm.get('returnDate')?.dirty) && ticketForm.get('returnDate')?.errors?.invalidReturnDate"
+                      class="invalid">
+                      Return date is invalid
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('returnDate')?.touched || ticketForm.get('returnDate')?.dirty) && ticketForm.get('returnDate')?.errors?.invalidDiffDate"
+                      class="invalid">
+                      Return date must be 1 week after the departure date
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <select formControlName="priority" class="form-select" aria-label="Floating label select example">
+                        <option [selected]="true" value="Normal">Normal</option>
+                        <option value="Urgent">Urgent</option>
+                        <option value="Immediate">Immediate</option>
+                      </select>
+                      <label for="floatingSelectGrid">Priority</label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input formControlName="passportNumber" class="form-control" style="background-image: none;"
+                        type="text">
+                      <label for="">Passport Number</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('passportNumber')?.touched || ticketForm.get('passportNumber')?.dirty) && ticketForm.get('passportNumber')?.errors?.required"
+                      class="invalid">
+                      Please enter your passport number
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('passportNumber')?.touched || ticketForm.get('passportNumber')?.dirty) && ticketForm.get('passportNumber')?.value !== '' && (ticketForm.get('passportNumber')?.value.length < 6)  && ticketForm.get('passportNumber')?.errors"
+                      class="invalid">
+                      Passport number should contain atleast 6 characters
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('passportNumber')?.touched || ticketForm.get('passportNumber')?.dirty) && (ticketForm.get('passportNumber')?.value >= 6)  && ticketForm.get('passportNumber')?.errors"
+                      class="invalid">
+                      You can enter upto 25 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 20px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="projectName" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Project Name</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('projectName')?.touched || ticketForm.get('projectName')?.dirty) && ticketForm.get('projectName')?.errors?.required"
+                      class="invalid">
+                      Please enter your project name
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('projectName')?.touched || ticketForm.get('projectName')?.dirty) && ticketForm.get('projectName')?.value !== '' && (ticketForm.get('projectName')?.value.length < 3)  && ticketForm.get('projectName')?.errors"
+                      class="invalid">
+                      Project name should contain atleast 3 characters
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('projectName')?.touched || ticketForm.get('projectName')?.dirty) && (ticketForm.get('projectName')?.value.length >= 3)  && ticketForm.get('projectName')?.errors"
+                      class="invalid">
+                      You can enter upto 100 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px; padding-left: 2px;">
+                  <div class="col-md">
+                    <legend style="font-size: 1rem;">Expense Borne By:</legend>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="expenseBy" class="form-check-input" type="radio" id="gridRadios9"
+                        value="Company">
+                      <label class="form-check-label" for="gridRadios9">
+                        Company
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="expenseBy" class="form-check-input" type="radio" id="gridRadios10"
+                        value="Client">
+                      <label class="form-check-label" for="gridRadios10">
+                        Client
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="approverName" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Travel Approver Name</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('approverName')?.touched || ticketForm.get('approverName')?.dirty) && ticketForm.get('approverName')?.errors?.required"
+                      class="invalid">
+                      Please enter your approver name
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('approverName')?.touched || ticketForm.get('approverName')?.dirty) && (ticketForm.get('approverName')?.value !== '') && (ticketForm.get('approverName')?.value.length < 3) && ticketForm.get('approverName')?.errors"
+                      class="invalid">
+                      Travel approver name should contain atleast 3 characters
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('approverName')?.touched || ticketForm.get('approverName')?.dirty) && (ticketForm.get('approverName')?.value.length >= 3)  && ticketForm.get('approverName')?.errors"
+                      class="invalid">
+                      You can enter upto 100 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="expectedDuration" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Expected Duration of travel (in days)</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('expectedDuration')?.touched || ticketForm.get('expectedDuration')?.dirty) && (ticketForm.get('expectedDuration')?.value !== '')  && ticketForm.get('expectedDuration')?.errors"
+                      class="invalid">
+                      You can enter upto 100 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px; padding-left: 2px;">
+                  <div class="col-md">
+                    <legend style="font-size: 1rem;">Any upper bound on allowed amount?</legend>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="isUpperBound" class="form-check-input" type="radio" id="gridRadios13"
+                        value="Yes">
+                      <label class="form-check-label" for="gridRadios13">
+                        Yes
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="isUpperBound" class="form-check-input" type="radio" id="gridRadios14"
+                        value="No">
+                      <label class="form-check-label" for="gridRadios14">
+                        No
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="ticketForm.get('isUpperBound')?.value === 'Yes'" class="row g-2"
+                  style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="upperBoundAmt" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Please specify upper bound on allowed amount</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('upperBoundAmt')?.touched || ticketForm.get('upperBoundAmt')?.dirty) && (ticketForm.get('upperBoundAmt')?.value !== '')  && ticketForm.get('upperBoundAmt')?.errors"
+                      class="invalid">
+                      You can enter upto 500 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="additionalDetails" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Additional details</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('additionalDetails')?.touched || ticketForm.get('additionalDetails')?.dirty) && (ticketForm.get('additionalDetails')?.value !== '')  && ticketForm.get('additionalDetails')?.errors"
+                      class="invalid">
+                      You can enter upto 1000 characters
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="work-permit">
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <select formControlName="from" class="form-select" aria-label="Floating label select example">
+                        <option [value]="fc" *ngFor="let fc of cities">
+                          {{fc}}</option>
+                      </select>
+                      <label for="floatingSelectGrid">From</label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <select formControlName="to" class="form-select" aria-label="Floating label select example">
+                        <option [value]="tc" *ngFor="let tc of cities">
+                          {{tc}}</option>
+                      </select>
+                      <label for="floatingSelectGrid">To</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input formControlName="departureDate" class="form-control" type="date"
+                        style="background-image: none;" name="departureDate">
+                      <label for="floatingSelectGrid">Departure Date</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('departureDate')?.touched || ticketForm.get('departureDate')?.dirty) && ticketForm.get('departureDate')?.errors?.invalidDepartureDate"
+                      class="invalid">
+                      Departure date is invalid
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input formControlName="returnDate" class="form-control" type="date"
+                        style="background-image: none;" name="returnDate">
+                      <label for="floatingSelectGrid">Return Date</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('returnDate')?.touched || ticketForm.get('returnDate')?.dirty) && ticketForm.get('returnDate')?.errors?.invalidReturnDate"
+                      class="invalid">
+                      Return date is invalid
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('returnDate')?.touched || ticketForm.get('returnDate')?.dirty) && ticketForm.get('returnDate')?.errors?.invalidDiffDate"
+                      class="invalid">
+                      Return date must be 1 week after the departure date
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <select formControlName="priority" class="form-select" aria-label="Floating label select example">
+                        <option [selected]="true" value="Normal">Normal</option>
+                        <option value="Urgent">Urgent</option>
+                        <option value="Immediate">Immediate</option>
+                      </select>
+                      <label for="floatingSelectGrid">Priority</label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input formControlName="passportNumber" class="form-control" style="background-image: none;"
+                        type="text">
+                      <label for="">Passport Number</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('passportNumber')?.touched || ticketForm.get('passportNumber')?.dirty) && ticketForm.get('passportNumber')?.errors?.required"
+                      class="invalid">
+                      Please enter your passport number
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('passportNumber')?.touched || ticketForm.get('passportNumber')?.dirty) && ticketForm.get('passportNumber')?.value !== '' && (ticketForm.get('passportNumber')?.value.length < 6)  && ticketForm.get('passportNumber')?.errors"
+                      class="invalid">
+                      Passport number should contain atleast 6 characters
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('passportNumber')?.touched || ticketForm.get('passportNumber')?.dirty) && (ticketForm.get('passportNumber')?.value >= 6)  && ticketForm.get('passportNumber')?.errors"
+                      class="invalid">
+                      You can enter upto 25 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 20px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="projectName" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Project Name</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('projectName')?.touched || ticketForm.get('projectName')?.dirty) && ticketForm.get('projectName')?.errors?.required"
+                      class="invalid">
+                      Please enter your project name
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('projectName')?.touched || ticketForm.get('projectName')?.dirty) && ticketForm.get('projectName')?.value !== '' && (ticketForm.get('projectName')?.value.length < 3)  && ticketForm.get('projectName')?.errors"
+                      class="invalid">
+                      Project name should contain atleast 3 characters
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('projectName')?.touched || ticketForm.get('projectName')?.dirty) && (ticketForm.get('projectName')?.value.length >= 3)  && ticketForm.get('projectName')?.errors"
+                      class="invalid">
+                      You can enter upto 100 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px; padding-left: 2px;">
+                  <div class="col-md">
+                    <legend style="font-size: 1rem;">Expense Borne By:</legend>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="expenseBy" class="form-check-input" type="radio" id="gridRadios15"
+                        value="Company">
+                      <label class="form-check-label" for="gridRadios15">
+                        Company
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="expenseBy" class="form-check-input" type="radio" id="gridRadios16"
+                        value="Client">
+                      <label class="form-check-label" for="gridRadios16">
+                        Client
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="approverName" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Travel Approver Name</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('approverName')?.touched || ticketForm.get('approverName')?.dirty) && ticketForm.get('approverName')?.errors?.required"
+                      class="invalid">
+                      Please enter your approver name
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('approverName')?.touched || ticketForm.get('approverName')?.dirty) && (ticketForm.get('approverName')?.value !== '') && (ticketForm.get('approverName')?.value.length < 3) && ticketForm.get('approverName')?.errors"
+                      class="invalid">
+                      Travel approver name should contain atleast 3 characters
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('approverName')?.touched || ticketForm.get('approverName')?.dirty) && (ticketForm.get('approverName')?.value.length >= 3)  && ticketForm.get('approverName')?.errors"
+                      class="invalid">
+                      You can enter upto 100 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="expectedDuration" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Expected Duration of travel (in days)</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('expectedDuration')?.touched || ticketForm.get('expectedDuration')?.dirty) && (ticketForm.get('expectedDuration')?.value !== '')  && ticketForm.get('expectedDuration')?.errors"
+                      class="invalid">
+                      You can enter upto 100 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px; padding-left: 2px;">
+                  <div class="col-md">
+                    <legend style="font-size: 1rem;">Any upper bound on allowed amount?</legend>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="isUpperBound" class="form-check-input" type="radio" id="gridRadios17"
+                        value="Yes">
+                      <label class="form-check-label" for="gridRadios17">
+                        Yes
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-check">
+                      <input formControlName="isUpperBound" class="form-check-input" type="radio" id="gridRadios18"
+                        value="No">
+                      <label class="form-check-label" for="gridRadios18">
+                        No
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="ticketForm.get('isUpperBound')?.value === 'Yes'" class="row g-2"
+                  style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="upperBoundAmt" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Please specify upper bound on allowed amount</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('upperBoundAmt')?.touched || ticketForm.get('upperBoundAmt')?.dirty) && (ticketForm.get('upperBoundAmt')?.value !== '')  && ticketForm.get('upperBoundAmt')?.errors"
+                      class="invalid">
+                      You can enter upto 500 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2" style="margin-bottom: 10px;">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <textarea formControlName="additionalDetails" class="form-control"
+                        style="background-image: none; height: 100px;"></textarea>
+                      <label for="floatingTextarea">Additional details</label>
+                    </div>
+                    <div
+                      *ngIf="(ticketForm.get('additionalDetails')?.touched || ticketForm.get('additionalDetails')?.dirty) && (ticketForm.get('additionalDetails')?.value !== '')  && ticketForm.get('additionalDetails')?.errors"
+                      class="invalid">
+                      You can enter upto 1000 characters
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <button type="submit" [disabled]="!ticketForm.valid">Submit</button> -->
+          <div class="card-header card-header-primary"
+            style="margin: 0px 100px -30px 100px; padding: 0px; border-radius: 100px; background-color: rgb(130, 240, 102);">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs"
+                  style="margin-top: 40px; border-bottom: 0px; place-content: center; width: 100%;">
+                  <li class="nav-item" style="width: 100%;">
+                    <div class="nav-link" style="font-size: 25px;">
+                      <button class="nav-link" style="width: 100%;" type="submit" [disabled]="!ticketForm.valid">Request
+                        Ticket</button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- End Tabs with icons on Card -->
+    </div>
+  </div>
+  <!-- ***** Form Ends ***** -->
+
+
+  <!-- ***** Footer Start ***** -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <p>
+            Copyright © 2021 <a href="/home">Hangout Travel</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>

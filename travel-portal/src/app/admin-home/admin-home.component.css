@@ -1,0 +1,31 @@
+.hovered:hover {
+  cursor: pointer;
+}
+
+[role="main"] {
+  padding-top: 133px;
+}
+
+@media (min-width: 768px) {
+  [role="main"] {
+    padding-top: 48px;
+  }
+}
+
+li{
+  margin-top: 20px;
+}
+
+
+table {
+  width: 100%;
+}
+
+
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+tr:hover {background-color:#ABE098;}
